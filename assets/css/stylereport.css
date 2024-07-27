@@ -1,0 +1,250 @@
+.blanco {
+    color: #fff
+}
+
+* {
+    margin: 0;
+    margin-top: 0
+}
+
+.nopadding {
+    padding: 0 !important
+}
+
+.titulo {
+    font-family: calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: right
+}
+
+.tituloDer {
+    font-family: calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: left
+}
+
+.resaltar {
+    color: #003970;
+    font-weight: bolder
+}
+
+.mitabla thead>tr>td {
+    padding: 10px
+}
+
+.mitabla tbody>tr>td {
+    font-family: calibri;
+    font-size: 11px;
+    padding: 10px
+}
+
+.mitabla2 thead>tr>td {
+    padding: 10px
+}
+
+.mitabla2 tbody>tr>td {
+    font-family: calibri;
+    font-size: 11px;
+    padding: 10px
+}
+
+.mitabla2 tbody>tr>td {
+    padding: 0 !important
+}
+
+.centrar {
+    text-align: center
+}
+
+.izq {
+    text-align: right
+}
+
+.just {
+    text-align: justify
+}
+
+.ptable {
+    padding: 10px !important
+}
+
+.pintar {
+    background-color: #e9ebee;
+    -webkit-print-color-adjust: exact
+}
+
+.pintar2 {
+    background-color: transparent;
+    color: red !important
+}
+
+.rellenoverde {
+    background-color: #03b739;
+    -webkit-print-color-adjust: exact
+}
+
+.pintargris {
+    background-color: #e9ebee;
+    -webkit-print-color-adjust: exact
+}
+
+.pintartable {
+    background-color: #777;
+    -webkit-print-color-adjust: exact;
+    color: #fff;
+    font-size: 12px
+}
+
+.txtBlack {
+    color: #000
+}
+
+.tituloEsp {
+    font-family: calibri;
+    font-size: 14px;
+    padding: 10px;
+    text-align: right;
+    font-size: 10px !important;
+    color: #000 !important
+}
+
+.bt {
+    border-top: 1px solid #ddd
+}
+
+.bb {
+    border-bottom: 1px solid #ddd
+}
+
+.br {
+    border-right: 1px solid #ddd
+}
+
+.bl {
+    border-left: 1px solid #ddd
+}
+
+.blanco {
+    color: #000
+}
+
+.pintartitulo {
+    border-top: 1px solid #e9ebee;
+    border-right: 1px solid #e9ebee;
+    border-left: 1px solid #e9ebee;
+    background-color: #e9ebee;
+    -webkit-print-color-adjust: exact;
+    font-size: 14px !important
+}
+
+.pintarsub {
+    background-color: #e9ebee;
+    -webkit-print-color-adjust: exact
+}
+
+.separar {
+    padding-left: 5px
+}
+
+@media all {
+    div.saltopagina {
+        display: none
+    }
+}
+
+@media print {
+    @page {
+        size: auto
+    }
+
+    body {
+        margin: 5mm 10mm 5mm 9mm
+    }
+
+    div.saltopagina {
+        display: block;
+        page-break-before: always
+    }
+}
+
+.infoinicial tr>td {
+    padding: 2px !important
+}
+
+.infoinicial .pintartitulo {
+    padding: 5px !important
+}
+
+.infoinicial .tituloDer td {
+    padding-left: 5px !important
+}
+
+.infoinicial .resaltar {
+    font-size: 10px !important
+}
+
+.ocutot {
+    font-size: 20px;
+    font-family: calibri;
+    font-weight: bolder;
+    color: #003970
+}
+
+.ocutot2 {
+    font-size: 20px;
+    font-family: calibri;
+    font-weight: bolder;
+    color: #003970;
+    font-size: 16px;
+    color: #494949
+}
+
+.bloque {
+    width: 155px;
+    height: 50px;
+    padding: 10px;
+    float: left;
+    text-align: center;
+    font-family: calibri;
+    font-size: 12px;
+    border: 1px solid #dbd9d9;
+    margin-left: 1px
+}
+
+.bloquex {
+    width: 155px;
+    height: 50px;
+    padding: 10px;
+    float: left;
+    text-align: center;
+    font-family: calibri;
+    font-size: 12px;
+    border: 1px solid #dbd9d9;
+    margin-left: 1px;
+    width: 214px
+}
+
+.clear {
+    clear: both
+}
+
+.line {
+    border-bottom: 1px solid #213c6d
+}
+
+.infodivini {
+    font-family: calibri;
+    font-size: 12px
+}
+
+.SizeFuente {
+    font-size: 14px !important
+}
+
+.resaltarTitle {
+    font-size: 14px !important;
+    color: #003970;
+    font-weight: bolder
+}

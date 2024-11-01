@@ -1,16 +1,15 @@
 <?php
-        $db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
-        if (isset($_POST)) {
+include '../../db/db.php';
+$db = dataBase::conexion();
+if (isset($_POST)) {
         $idjerarquia = $_POST['idjerarquia'];
         $sql = "SELECT * FROM `jerarquia`;";
-        $jerarquias = mysqli_query($db,$sql);
+        $jerarquias = mysqli_query($db, $sql);
 
-        while ($jerarquia = $jerarquias->fetch_object()){
+        while ($jerarquia = $jerarquias->fetch_object()) {
                 $selected = $jerarquia->idjerarquia == $idjerarquia ? 'selected' : '';
-                
-                $mensaje .= '<option value="'.$jerarquia->idjerarquia.' " '.$selected.' >'.$jerarquia->nombre.'</option>';
-                }
-                echo  $mensaje;
-        } 
-        
-?>
+
+                $mensaje .= '<option value="' . $jerarquia->idjerarquia . ' " ' . $selected . ' >' . $jerarquia->nombre . '</option>';
+        }
+        echo  $mensaje;
+}

@@ -1,9 +1,8 @@
 <?php
+include '../../db/db.php';
+$db = dataBase::conexion();
 if ($_POST['funcion'] && $_POST['funcion'] == 'verResultados') {
-	$db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
 	/* SE CONSULTA LA VISTA */
-
-
 	$yearActual = date('Y');
 	//$yearActual = 2023;
 	$sql = "SELECT

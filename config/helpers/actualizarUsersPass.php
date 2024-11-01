@@ -1,7 +1,8 @@
 <?php
 
 /* CRON PARA ACTUALIZAR USUARIOS Y PASSWORD */
-$db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
+include '../../db/db.php';
+$db = dataBase::conexion();
 
 $sql_allUserpass = "SELECT idusuario,appaterno, noempleado, password FROM usuarios;";
 $allUserpass =  mysqli_query($db, $sql_allUserpass);

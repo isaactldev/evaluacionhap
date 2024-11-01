@@ -1,26 +1,21 @@
 <?php
-        $db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
-        
-        
-        $sql = "SELECT * FROM `competenciastecnicas`;";
-        $historicocompetenciastecnicas = mysqli_query($db,$sql);
+include '../../db/db.php';
+$db = dataBase::conexion();
 
-        
 
-        while ($hsitorico = $historicocompetenciastecnicas->fetch_object()){
+$sql = "SELECT * FROM `competenciastecnicas`;";
+$historicocompetenciastecnicas = mysqli_query($db, $sql);
 
-                
-                $sqlinserthsitorico = "UPDATE `evaluacionrespusuariotecnica`  SET `competencia` = '{$hsitorico->competencia}' WHERE idcopentenciatecnica = {$hsitorico->idcopentenciatecnica};";
 
-                
-                /* echo '<pre>';
+
+while ($hsitorico = $historicocompetenciastecnicas->fetch_object()) {
+
+
+        $sqlinserthsitorico = "UPDATE `evaluacionrespusuariotecnica`  SET `competencia` = '{$hsitorico->competencia}' WHERE idcopentenciatecnica = {$hsitorico->idcopentenciatecnica};";
+
+
+        /* echo '<pre>';
                 echo $sqlinserthsitorico;
                 echo '</pre>'; */
-                mysqli_query($db,$sqlinserthsitorico);
-                }
-                
-        
-?>
-
-
-
+        mysqli_query($db, $sqlinserthsitorico);
+}

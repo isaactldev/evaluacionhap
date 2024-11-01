@@ -1,7 +1,9 @@
 <?php
 
+include '../../db/db.php';
+$db = dataBase::conexion();
+
 if ($_POST['funcion'] && $_POST['funcion'] == 'verCardex') {
-	$db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
 
 	$fechaCardex = $_POST['fechaCardex'];
 	/* SE CONSULTA LA VISTA */

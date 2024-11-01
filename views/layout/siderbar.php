@@ -1,5 +1,6 @@
 <!-- Main Sidebar Container -->
 <?php
+date_default_timezone_set('America/Mexico_City');
 $yearActual = date('Y');
 $periodoreportActivo =  Utils::getPeriodoActivo();
 ?>
@@ -131,7 +132,7 @@ $periodoreportActivo =  Utils::getPeriodoActivo();
 
             <?php
             // PERSONAL 360 QUE YA SE ECUENTRAN EVALUADOS
-            $db360 = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
+            $db360 = dataBase::conexion();
             $sqlexistUserEvaluador360 = "SELECT * FROM personal360 WHERE idevaluador = {$_SESSION['identity']->noempleado} AND periodo =  {$periodoreportActivo->idperiodo} AND statuseva360 = 2 AND fecha = {$yearActual};";
             $existUserEvaluador360 = mysqli_query($db360, $sqlexistUserEvaluador360);
             ?>

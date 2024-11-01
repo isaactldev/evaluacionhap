@@ -1,10 +1,8 @@
 <?php
-$db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
+include '../../db/db.php';
+$db = dataBase::conexion();
 if (isset($_POST)) {
     $id = $_POST['idDepartamento'];
-
-
-
     $sql = "SELECT * FROM `usuarios` WHERE `iddepartamento` ={$id};";
     $evaluadores = mysqli_query($db, $sql);
     $mensaje2 .= '<option selected value="">Selecciona el Evaluador</option>';

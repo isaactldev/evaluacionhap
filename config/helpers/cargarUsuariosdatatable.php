@@ -1,7 +1,10 @@
 <?php
 
+include '../../db/db.php';
+$db = dataBase::conexion();
+
 if ($_POST['funcion'] && $_POST['funcion'] == 'verUsuarios') {
-    $db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
+    //$db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
     /* SE CONSULTA LA VISTA */
     $sql = "SELECT * FROM `vw_usuarios`;";
     $usuarios = mysqli_query($db, $sql);
@@ -18,7 +21,7 @@ if ($_POST['funcion'] && $_POST['funcion'] == 'verUsuarios') {
 
 /* CONTROLADOR CUANDO LA SOLICITUD ES EDIT */
 if ($_POST['funcion'] && $_POST['funcion'] == 'editar') {
-    $db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
+    //$db = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
 
     /* OBTENEMOS LOS DATOS DEL AJAX PARA EDITARLOS  6602*/
     $editid = $_POST['editid'];

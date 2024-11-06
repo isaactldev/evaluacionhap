@@ -55,8 +55,6 @@ function countPuntos() {
 
   /* CALCULO DE CALIFICACION GENERALES*/
   let calf1 = totalPuntos * 0.4 / maxPuntosG;
-  calf1 = Math.trunc(calf1 * 100) / 100;
-  calf1 = calf1.toFixed(2);
 
   /* SI EXISTE CALIFICACION DEL ANECDOTARIO */
   if ($("#califAnecdotario").length) {
@@ -97,7 +95,6 @@ function countPuntos() {
       $("#readysaveEvaluacion").prop("disabled", false);
     }
   } else {
-    debugger;
     /* PREGUNTAS TECNICAS */
     for (let i = 0; i < totalPreguntasTec; i++) {
       let idPreguntaTec = $("#idptec" + i).val();
@@ -129,10 +126,6 @@ function countPuntos() {
 
     let totalPuntosTec = countPuntosTec;
     let calf2 = countPuntosTec * 0.5 / maxPuntosTec;
-    var calf2 = calf2 * 10;
-    calf2 = Math.trunc(calf2 * 100) / 100;
-    calf2 = calf2.toFixed(2);
-
     let calificacion = (calf1 + calf2) * 10;
     if (calificacion > 10) {
       calificacion = 10;

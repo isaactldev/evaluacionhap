@@ -86,8 +86,8 @@ $countt = 0;
                     </div>
                     <div class="col-12 mb-3">
                       <label for="calificaconCapF" class="form-label">Plataforma de Capacitacion Calif.</label>
-                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap->calif_competencia ?>
-                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>">
+                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap ?>
+                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>" disabled>
                     </div>
                   </div>
                 </div>

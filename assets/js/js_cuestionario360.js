@@ -20,6 +20,7 @@ function countPuntos() {
   let calif360user = $("#calif360user").val();
   var preguntasFaltantes360Directivo = false;
   let maxPuntosTec = totalPreguntasTec * 4;
+  var califCap = parseFloat($("#calificaconCapF").val());
 
   for (let i = 0; i < totalPreguntasTec; i++) {
     let idPreguntaTec = $("#idptec" + i).val();
@@ -53,7 +54,7 @@ function countPuntos() {
   console.log("totalPuntosTec: ", totalPuntosTec);
 
   let calf1 = totalPuntosTec * 0.4 / maxPuntosTec;
-  let calf2 = calif360user * 0.6; /* calidicacion de la 360 */
+  let calf2 = calif360user * 0.5; /* calidicacion de la 360 */
 
   let califpreliminarTec = calf1 * 10;
   let calificacion = califpreliminarTec + calf2;
@@ -62,29 +63,35 @@ function countPuntos() {
   if (calificacion > 10) {
     calificacion = 10;
   } else {
-    calificacion = calificacion.toFixed(2);
+    calificacion = calificacion;
   }
 
   if (isNaN(calificacion)) {
     $("#totalPuntos2").val(0);
     preguntasFaltantes360Directivo = true;
   } else {
-    console.log("CALIFICACION FINAL:", calificacion);
-    calificacion = ajusteCalifCapacitacion(calificacion);
+    calificacion = calificacion + califCap;
+    calificacion = Math.trunc(calificacion * 100) / 100;
+
+    var showcalf1 = calf1 * 10;
+    showcalf1 = Math.trunc(showcalf1 * 100) / 100;
+    showcalf1 = showcalf1.toFixed(2);
 
     $("#totalPuntos2").val(calificacion);
-    var x = document.getElementById("alertCapacitaciones");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
+    $("#califTecR").val(showcalf1);
+    $("#califCapacit").val(califCap);
+
+    /* console.log(totalPuntos);
+    console.log("calificacion generica:", calf1);
+    console.log("calificacion tecnicas:", calf2);
+    console.log("Calificacion FINAL:", calificacion);
+    console.log("Calificacion Cap", califCap); */
+
+    /* VALIDACION PARA GUARDAR CALIFICACION */
+    if (preguntasFaltantes360Directivo == false && !isNaN(calificacion)) {
+      $("#totalPuntos2").val(calificacion);
+      $("#readysaveEvaluacion360Directivo").prop("disabled", false);
     }
-  }
-
-  /* VALIDACION PARA GUARDAR CALIFICACION */
-  if (preguntasFaltantes360Directivo == false && !isNaN(calificacion)) {
-    $("#totalPuntos2").val(calificacion);
-    $("#readysaveEvaluacion360Directivo").prop("disabled", false);
   }
 }
 
@@ -135,7 +142,7 @@ function guardarRespuestas() {
     capacitacion: capacitacion,
     evalua360: evalua360,
     periodo: periodo,
-    califCapacitacion: califCap
+    califCap: califCap
   };
   var url = location.origin;
   var path = window.location.pathname;

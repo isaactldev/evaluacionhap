@@ -144,15 +144,6 @@ Utils::deleteSession('saveeditCapacitacion');
                         <p><small><strong>Tu calificación sera capturada por desarrollo de Personal</strong></small></p>
                       <?php endif; ?>
                     </div>
-                    <div class="col-12 mb-3">
-                      <label for="formGroupExampleInput" class="form-label">Calificación</label>
-                      <input type="text" class="form-control" id="totalPuntos" name="puntaje" value="<?= $califPeriodo->calificacionperiodo ?>">
-                    </div>
-                    <div class="col-12 mb-3">
-                      <blockquote style="border-left: 5px solid #0080c0; margin-top: 5px;" class="heartbeat-button">
-                        <h1 style="color: #000;"><strong>#NOTA: </strong> ¡Recuerda que esta es una calificacion preliminar, falta por considerar el rubro de CAPACITACIONES!</h1>
-                      </blockquote>
-                    </div>
                   </div>
                   <div class="col-4">
                     <div class="col-12 mb-3">
@@ -164,6 +155,11 @@ Utils::deleteSession('saveeditCapacitacion');
                       <label for="formGroupExampleInput" class="form-label">Departamento</label>
                       <?php $puesto = Utils::userDepartamento($usuario->iddepartamento); ?>
                       <input type="text" class="form-control" id="formGroupExampleInput" name="dep" value="<?= $puesto->depnombre ?>">
+                    </div>
+                    <div class="col-12 mb-3">
+                      <label for="calificaconCapF" class="form-label">Plataforma de Capacitacion Calif.</label>
+                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" :  $califCap ?>
+                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>" disabled>
                     </div>
                   </div>
                   <div class="col-4">
@@ -177,9 +173,8 @@ Utils::deleteSession('saveeditCapacitacion');
                       <input type="text" class="form-control" id="idperiodo" name="periodo" value="<?= $califPeriodo->idperiodo; ?>">
                     </div>
                     <div class="col-12 mb-3">
-                      <label for="calificaconCapF" class="form-label">Plataforma de Capacitacion Calif.</label>
-                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap->calif_competencia ?>
-                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>">
+                      <label for="formGroupExampleInput" class="form-label">Calificación</label>
+                      <input type="text" class="form-control text-center" id="totalPuntos" name="puntaje" value="<?= $califPeriodo->calificacionperiodo ?>" disabled>
                     </div>
                   </div>
                 </div>
@@ -409,10 +404,16 @@ Utils::deleteSession('saveeditCapacitacion');
             <hr>
             <?php if ($_SESSION['identity']->rol == 'admin') : ?>
               <div class="row">
+                <div class="col-6 mt-3 mb-2 justify-content-md-end">
+                </div>
+                <div class="col-6 mt-3 mb-2 text-md-right justify-content-md-end">
+                  <label for="formGroupExampleInput">Competencias Tecnicas: </label><input id="califTecR" type="number" class="ml-2 me-1 col-1 text-center" value="" disabled><br>
+                  <label for="formGroupExampleInput">Plataforma de Capacitacion: </label><input id="califCapacit" type="number" class="ml-2 me-1 col-1 text-center" value="" disabled><br>
+                  <hr>
+                  <label for="formGroupExampleInput">Total: </label><input type="text" class="ml-2 me-1 col-1 text-center" id="totalPuntos2" name="puntaje" value="" disabled><br>
+                </div>
                 <div class="d-grid gap-2 d-md-flex mt-3 mb-2 justify-content-md-end">
-                  Calificacion Previa: <input type="text" class="form-control col-1" id="totalPuntos2" name="puntaje" value="">
                   <button class="btn btn-primary me-md-2" type="button" onclick="countPuntos();"><i class="fas fa-spell-check"></i> Ver Calificacion </button>
-
                   <button id="readysaveEvaluacion360Directivo" class="btn btn-primary me-md-2" type="button" onclick="guardarRespuestas();"><i class="fa fa-fw fa-plus-square"></i> Guardar Modificacion </button>
 
                 </div>
@@ -515,6 +516,7 @@ Utils::deleteSession('saveeditCapacitacion');
     let totalPreguntasTec = $('#totalPreguntasTec').val();
     let calif360user = $('#calif360user').val();
     var preguntasFaltantes360 = false;
+    var califCap = parseFloat($("#calificaconCapF").val());
 
     let maxPuntosTec = totalPreguntasTec * 4;
 
@@ -544,7 +546,7 @@ Utils::deleteSession('saveeditCapacitacion');
     let totalPuntosTec = countPuntosTec;
     console.log('totalPuntosTec: ', totalPuntosTec);
 
-    let calf1 = (totalPuntosTec * 0.6) / maxPuntosTec;
+    let calf1 = (totalPuntosTec * 0.5) / maxPuntosTec;
     let calf2 = (calif360user * 0.4); /* calidicacion de la 360 */
 
     let califpreliminarTec = calf1 * 10;
@@ -554,16 +556,28 @@ Utils::deleteSession('saveeditCapacitacion');
     if (calificacion > 10) {
       calificacion = 10;
     } else {
-      calificacion = calificacion.toFixed(2);
+      calificacion = calificacion;
     }
+
+    calificacion = Math.trunc(calificacion * 100) / 100;
 
     if (isNaN(calificacion)) {
       $("#totalPuntos2").val(0);
       preguntasFaltantes360 = true;
     } else {
-      console.log("CALIFICACION FINAL:", calificacion);
-      calificacion = ajusteCalifCapacitacion(calificacion);
+
+      calificacion = calificacion + califCap;
+      calificacion = Math.trunc(calificacion * 100) / 100;
+
+      /* CALIFICACION TECNICA 360 */
+      var showcalf1 = calf1 * 10;
+      showcalf1 = Math.trunc(showcalf1 * 100) / 100;
+      showcalf1 = showcalf1.toFixed(2);
+
+      $("#califTecR").val(showcalf1);
+      $("#califCapacit").val(califCap);
       $("#totalPuntos2").val(calificacion);
+      console.log("CALIFICACION FINAL:", calificacion);
 
       if (preguntasFaltantes360 == false && !isNaN(calificacion)) {
         $("#totalPuntos2").val(calificacion);

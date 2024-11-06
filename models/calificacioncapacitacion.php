@@ -201,12 +201,18 @@ class calificacionCapacitacion
 
     public function getCalificacionCapByUser()
     {
-        $sql = "SELECT * FROM califcapacitacion WHERE noempleado =  {$this->getNoempleado()} AND idperiodo =  {$this->getIdperiodo()} AND fecha  =  {$this->getFecha()};";
+
+        $sql = "SELECT  CASE
+                WHEN (COUNT(*) / 3) >= 1 THEN 1
+                ELSE COUNT(*) / 3
+                END AS resultado
+			    FROM califcapacitacion
+                WHERE noempleado={$this->getNoempleado()} AND enlazado=1 AND idperiodo={$this->getIdperiodo()} AND fecha={$this->getFecha()} AND calif_competencia>=0.8;";
         $califcapUser =  $this->db->query($sql);
 
-        //var_dump($califcapUser->num_rows);
         if ($califcapUser->num_rows >= 1) {
-            return $califcapUser->fetch_object();
+            $califcapUser = $califcapUser->fetch_object()->resultado;
+            return $califcapUser;
         } else {
             $mensaje = "400";
             return $mensaje;

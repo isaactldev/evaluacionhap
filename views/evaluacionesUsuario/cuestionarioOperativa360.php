@@ -92,8 +92,8 @@ $countt = 0;
                     </div>
                     <div class="col-12 mb-3">
                       <label for="calificaconCapF" class="form-label">Plataforma de Capacitacion Calif.</label>
-                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap->calif_competencia ?>
-                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>">
+                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap ?>
+                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>" disabled>
                     </div>
                   </div>
                 </div>
@@ -215,8 +215,15 @@ $countt = 0;
               <hr>
 
               <div class="row">
+                <div class="col-6 mt-3 mb-2 justify-content-md-end">
+                </div>
+                <div class="col-6 mt-3 mb-2 text-md-right justify-content-md-end">
+                  <label for="formGroupExampleInput">Competencias Tecnicas: </label><input id="califTecR" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                  <label for="formGroupExampleInput">Plataforma de Capacitacion: </label><input id="califCapacit" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                  <hr>
+                  <label for="formGroupExampleInput">Total: </label><input type="text" class=" ml-2 col-1 text-center" id="totalPuntos2" name="puntaje" value="" disabled><br>
+                </div>
                 <div class="d-grid gap-2 d-md-flex mt-3 mb-2 justify-content-md-end">
-                  Puntuacion: <input type="text" class="form-control col-1" id="totalPuntos2" name="puntaje" value="">
                   <button class="btn btn-primary me-md-2" type="button" onclick="countPuntos();"><i class="fas fa-spell-check"></i> Ver Calificacion </button>
                   <button id="readysaveEvaluacion360" class="btn btn-primary me-md-2" type="button" onclick="guardarRespuestas();" disabled><i class="fa fa-fw fa-plus-square"></i> Guardar Evaluacion </button>
                 </div>

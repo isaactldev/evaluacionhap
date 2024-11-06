@@ -14,7 +14,7 @@ if (isset($_POST['objtUseR'])) {
     $capacitacion = $_POST['objtUseR']['capacitacion'];
     $compromisos = $_POST['objtUseR']['compromisos'];
     $periodo = $_POST['objtUseR']['periodo'];
-    $califCapacitacion =  $_POST['objtUseR']['califCapacitacion'];
+    $califCap =  $_POST['objtUseR']['califCap'];
     $year = date('Y');
 
     $sqlinfoUserEva =  "SELECT * FROM usuarios WHERE idusuario =  {$idUser};";
@@ -23,8 +23,8 @@ if (isset($_POST['objtUseR'])) {
     $maxPuntosTec = $respTec2 * 4;
 
     /* CALCULO DE CALIFICACION OPARA OPERATIVOS */
-    $calf1preliminar = ($totalPuntosTec * 0.6) / $maxPuntosTec;/* calificacion de Competencias Tecnicas */
-    $calf2 = ($calif360user * 0.4);/* calidicacion de la 360 */
+    $calf1preliminar = ($totalPuntosTec * 0.5) / $maxPuntosTec;/* calificacion de Competencias Tecnicas */
+    $calf2 = ($calif360user * 0.4);/* calificacion de la 360 */
 
     $calif1 = $calf1preliminar * 10;
 
@@ -32,12 +32,10 @@ if (isset($_POST['objtUseR'])) {
     /* SE PONDERA LA CALIFICACION SI ES MAYOR A 10 SE QUEDA EN UN 10 ABSOLUTO */
     if ($calificacion >= 10) {
         $calificacionOficial = 10;
-        $calificacionOficialAjuste = $calificacionOficial - 1;
-        $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+        $calificacionOficial =  $calificacionOficial + $califCap;
     } else {
-        $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-        $calificacionOficialAjuste = $calificacionOficial - 1;
-        $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+        $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+        $calificacionOficial =  $calificacionOficial + $califCap;
     }
 
     /* INSERCION DE CALIFICACION TECNICA PARA REPORTE */
@@ -55,8 +53,6 @@ if (isset($_POST['objtUseR'])) {
             VALUES (NULL, {$idUser}, {$calif1}, {$periodo}, {$year});";
         $savecaliftec = mysqli_query($db, $sqlcaliftec);
     }
-
-
 
 
     /* FIN CALCULO DE CALIFICACION OPARA OPERATIVOS */

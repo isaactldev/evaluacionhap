@@ -1,6 +1,9 @@
 <?php
 include '../../db/db.php';
 $db = dataBase::conexion();
+
+date_default_timezone_set('America/Mexico_City');
+//$yearActual = 2023;
 if ($_POST['funcion'] && $_POST['funcion'] == 'verResultados') {
 	/* SE CONSULTA LA VISTA */
 	$yearActual = date('Y');
@@ -73,7 +76,7 @@ FROM
 	while ($user = $usuariosResultados->fetch_assoc()) {
 		$objeusersJon["data"][] =  $user;
 	}
+	header('Content-type: application/json; charset=utf-8');
 	print $json = json_encode($objeusersJon);
 	$archivo = file_put_contents("verResultados.json", $json);
-	# Solo se Guardara la imagen si Existe el Fichero "uploads/imgProducts" y sea de tipo imagens
 }

@@ -16,7 +16,7 @@ if (isset($_POST['objtUseR'])) {
     $maxPuntosTec = $respTec2 * 4;
 
     /* CALCULO DE CALIFICACION OPARA OPERATIVOS */
-    $calf1preliminar = ($totalPuntosTec * 0.6) / $maxPuntosTec;/* calificacion de Competencias Tecnicas */
+    $calf1preliminar = ($totalPuntosTec * 0.5) / $maxPuntosTec;/* calificacion de Competencias Tecnicas */
     $calf2 = ($calif360user * 0.4);/* calidicacion de la 360 */
 
     $calif1 = $calf1preliminar * 10;

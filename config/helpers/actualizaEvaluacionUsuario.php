@@ -9,7 +9,7 @@ if (isset($_POST['objtUseR'])) {
     $totalPuntosTec = $_POST['objtUseR']["totalPuntosTec"];
     $resp = COUNT($_POST['objtUseR']['respuestas']);
     $respTec = COUNT($_POST['objtUseR']['respuestasTec']);
-    $califCapacitacion =  $_POST['objtUseR']['califCapacitacion'];
+    $califCap =  $_POST['objtUseR']['califCap'];
     $periodo = $_POST['objtUseR']['periodo'];
     $year = date('Y');
 
@@ -64,17 +64,17 @@ if (isset($_POST['objtUseR'])) {
 
         if ($calificacion >= 10) {
             $calificacionOficial = 10;
+            $calificacionOficial =  $calificacionOficial + $califCap;
         } else {
-            $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial =  $calificacionOficial + $califCap;/* CALCULO A 2 DECIMALES */
         }
     } else {
 
         /* CALCULO DE CALIFICACION OPARA OPERATIVOS */
-        $calf1 = ($totalPuntosG * 0.6) / $maxPuntosG;
-        $calf2 = ($totalPuntosTec * 0.4) / $maxPuntosTec;
-
+        $calf1 = ($totalPuntosG * 0.4) / $maxPuntosG;
+        $calf2 = ($totalPuntosTec * 0.5) / $maxPuntosTec;
         $califtec = $calf2 * 10;
-
         $calificacion = ($calf1 + $calf2) * 10;
 
 
@@ -82,8 +82,10 @@ if (isset($_POST['objtUseR'])) {
         /* SE PONDERA LA CALIFICACION SI ES MAYOR A 10 SE QUEDA EN UN 10 ABSOLUTO */
         if ($calificacion >= 10) {
             $calificacionOficial = 10;
+            $calificacionOficial =  $calificacionOficial + $califCap;
         } else {
-            $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial =  $calificacionOficial + $califCap;
         }
 
         $year = date('Y');

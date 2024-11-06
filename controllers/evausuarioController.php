@@ -38,7 +38,7 @@ class evausuarioController
         $periodo2 = 2;
 
         /* ALERTA DE EVALUACIONES 360° */
-        $dbalert = mysqli_connect('localhost', 'root', 'DesWeb15', 'evapersonal22');
+        $dbalert = dataBase::conexion();
         $sqlAlertaEvaluaciones360 = "SELECT * FROM `personal360` WHERE idevaluador = {$_SESSION['identity']->noempleado} AND statuseva360 = 2 ;";
         $existAlert = mysqli_query($dbalert, $sqlAlertaEvaluaciones360);
 
@@ -93,6 +93,7 @@ class evausuarioController
             $califCapByUser->setIdperiodo($periodoActivo->idperiodo);
             $califCapByUser->setFecha($fecha);
             $califCap =  $califCapByUser->getCalificacionCapByUser();
+            $califCap = bcdiv($califCap, '1', 2);
 
             /* cuestionario general se califica a colaboradores*/
             if ($usuario->tipoevaluacion == 'OPERATIVO' && $usuario->autoevalua == 2  && $usuario->evalua360 == 'NO') {
@@ -126,7 +127,6 @@ class evausuarioController
 
             $usuarioEvaluadoInfo = new Usuarios();
             $usuarioInfo = $usuarioEvaluadoInfo->getUserById($iduser);
-
 
             //validamos si el id del usuario si existe algun cambio de puesto en el Historico
 
@@ -175,6 +175,7 @@ class evausuarioController
             $califCapByUser->setIdperiodo($periodoActivo->idperiodo);
             $califCapByUser->setFecha($fecha);
             $califCap =  $califCapByUser->getCalificacionCapByUser();
+            $califCap = bcdiv($califCap, '1', 2);
 
             /* cuestionario general se califica a colaboradores*/
             if ($usuario->tipoevaluacion == 'OPERATIVO' && $usuario->autoevalua == 2  && $usuario->evalua360 == 'NO') {

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
   var url = location.origin;
   var path = window.location.pathname;
   var fechaCardex = $("#fechaCardex").val();
@@ -11,41 +11,41 @@ $(document).ready(function () {
       method: "POST",
       data: {
         funcion: funcion,
-        fechaCardex: fechaCardex,
+        fechaCardex: fechaCardex
       },
-      dataSrc: "data",
+      dataSrc: "data"
     },
     columns: [
       {
-        data: "noempleado",
+        data: "noempleado"
       },
       {
-        data: "nombrecompleto",
+        data: "nombrecompleto"
       },
       {
-        data: "nombrepuesto",
+        data: "nombrepuesto"
       },
       {
-        data: "depnombre",
+        data: "depnombre"
       },
       {
-        data: "cp1",
+        data: "cp1"
       },
       {
-        data: "cp2",
+        data: "cp2"
       },
       {
-        data: "",
+        data: ""
       },
       {
-        data: "tipoevaluacion",
+        data: "tipoevaluacion"
       },
       {
-        data: "status",
+        data: "status"
       },
       {
-        data: "FECHAEVA",
-      },
+        data: "FECHAEVA"
+      }
     ],
 
     columnDefs: [
@@ -53,7 +53,7 @@ $(document).ready(function () {
         /* CALIFICACION PERIODO 1 */
         targets: [4],
         data: "cp1",
-        render: function (data, type, row) {
+        render: function(data, type, row) {
           if (data == null) {
             return '<a><span class="badge bg-light text-dark">0</span></a>';
           } else
@@ -62,13 +62,13 @@ $(document).ready(function () {
               data +
               "</span></a>"
             );
-        },
+        }
       },
       {
         /* CALIFICACION PERIODO 2 */
         targets: [5],
         data: "cp2",
-        render: function (data, type, row) {
+        render: function(data, type, row) {
           if (data == null) {
             return '<a><span class="badge bg-light text-dark">0</span></a>';
           } else
@@ -77,14 +77,14 @@ $(document).ready(function () {
               data +
               "</span></a>"
             );
-        },
+        }
       },
       {
         /* PROMEDIO */
         targets: [6],
         data: null,
         defaultContent: `<a><span class="badge bg-light text-dark">0</span></a>`,
-        render: function (data, type, row) {
+        render: function(data, type, row) {
           if (row.cp1 != null && row.cp2 == null) {
             return (
               '<a><span class="badge bg-light text-dark">' +
@@ -105,18 +105,18 @@ $(document).ready(function () {
               "</span></a>"
             );
           }
-        },
+        }
       },
       {
         /* status */
         targets: [8],
         data: "status",
-        render: function (data, type, row) {
+        render: function(data, type, row) {
           if (data == "ACTIVO") {
             return '<span class="badge bg-success">ACTIVO</span>';
           } else return '<span class="badge bg-danger">INACTIVO</span>';
-        },
-      },
+        }
+      }
     ],
 
     responsive: true,
@@ -132,16 +132,16 @@ $(document).ready(function () {
       search: "Buscar:",
       paginate: {
         next: "Siguiente",
-        previous: "Anterior",
+        previous: "Anterior"
       },
-      loadingRecords: "CARGANDO...",
+      loadingRecords: "CARGANDO..."
     },
     dom: "Bfrtilp",
     buttons: {
       dom: {
         button: {
-          className: "btn",
-        },
+          className: "btn"
+        }
       },
       buttons: [
         {
@@ -150,16 +150,16 @@ $(document).ready(function () {
           text: '<i class="fas fa-file-excel"></i> Exportar Excel',
           className: "btn btn-success",
           excelStyles: {
-            template: "blue_medium",
-          },
-        },
-      ],
-    },
+            template: "blue_medium"
+          }
+        }
+      ]
+    }
   });
   table.buttons().container().appendTo("#crud_wrapper .col-md-6:eq(0)");
 
   /* FUNCION PARA VER EL REPORTE DE CALIFICACIONES DEL USUARIO */
-  $("#crudResultados tbody").on("click", "#verReporte", function () {
+  $("#crudResultados tbody").on("click", "#verReporte", function() {
     let data = table.row($(this).parents()).data();
     var url = location.origin;
     var path = window.location.pathname;

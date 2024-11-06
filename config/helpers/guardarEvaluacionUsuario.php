@@ -1,7 +1,13 @@
 <?php
-include 'config/helpers/utils.php';
+include '../../config/helpers/utils.php';
 include '../../db/db.php';
 $db = dataBase::conexion();
+date_default_timezone_set('America/Mexico_City');
+
+/* Evaluación normal:
+1)	Generales: 40%
+2)	Capacitación:10%
+3)	Técnicas: 50% */
 
 if (isset($_POST['objtUseR'])) {
     /*  $mensaje2 = "exito"; */
@@ -13,7 +19,7 @@ if (isset($_POST['objtUseR'])) {
     $capacitacion = $_POST['objtUseR']['capacitacion'];
     $compromisos = $_POST['objtUseR']['compromisos'];
     $periodo = $_POST['objtUseR']['periodo'];
-    $califCapacitacion =  $_POST['objtUseR']['califCapacitacion'];
+    $califCap =  $_POST['objtUseR']['califCap'];
     $year = date('Y');
     $maxPuntosG = $resp * 4;
     $maxPuntosTec = $respTec * 4;
@@ -54,32 +60,33 @@ if (isset($_POST['objtUseR'])) {
 
         if ($calificacion >= 10) {
             $calificacionOficial = 10;
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial =  $calificacionOficial + $califCap;
         } else {
-            $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial =  $calificacionOficial + $califCap;
         }
     } else {
 
         /* CALCULO DE CALIFICACION OPARA OPERATIVOS */
-        $calf1 = ($totalPuntosG * 0.6) / $maxPuntosG;
-        $calf2 = ($totalPuntosTec * 0.4) / $maxPuntosTec;
-
+        $calf1 = ($totalPuntosG * 0.4) / $maxPuntosG;
+        $calf2 = ($totalPuntosTec * 0.5) / $maxPuntosTec;
         $califtec = $calf2 * 10;
-
         $calificacion = ($calf1 + $calf2) * 10;
+
+
         /* SE PONDERA LA CALIFICACION SI ES MAYOR A 10 SE QUEDA EN UN 10 ABSOLUTO */
         if ($calificacion >= 10) {
             $calificacionOficial = 10;
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial =  $calificacionOficial + $califCap;
         } else {
-            $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial =  $calificacionOficial + $califCap;
         }
+
+        // var_dump($calf1);
+        // var_dump($calf2);
+        // var_dump($calificacion);
+        // var_dump($calificacionOficial);
 
         $year = date('Y');
         /* INSERCION DE CALIFICACION TECNICA PARA REPORTE */
@@ -107,7 +114,7 @@ if (isset($_POST['objtUseR'])) {
         /* INSERCION DE CALIFICACION TECNICA PARA REPORTE */
         $sqlCalifPeriodo = "INSERT INTO `calificacionusuarioperiodo` (`idcalificacionperiodo`, `idusuario`,`idperiodo`,`calificacionperiodo`,`fecha`) 
         VALUES (NULL, {$idUser},{$periodo}, {$calificacionOficial}, {$year});";
-        $savecaliftec = mysqli_query($db, $sqlCalifPeriodo);
+        $savecaliftec_periodo = mysqli_query($db, $sqlCalifPeriodo);
     }
 
 
@@ -125,8 +132,6 @@ if (isset($_POST['objtUseR'])) {
         VALUES (NULL , '{$idUser}', '{$compromisos}', CURDATE(), NOW());";
     $comp = mysqli_query($db, $sqlA);
 
-
-
     /* INSERT DEL REQUIERE CAPACITACION */
     $sqlB = "INSERT INTO `requierecapacitacion` (
         `idcapacitacion` ,
@@ -138,8 +143,10 @@ if (isset($_POST['objtUseR'])) {
         NULL , '{$idUser}', '{$capacitacion}', CURDATE());";
     $capa = mysqli_query($db, $sqlB);
 
+
+
     $request = false;
-    if ($saveCalif && $comp && $capa) {
+    if ($saveCalif && $comp && $capa && savecaliftec_periodo) {
         $request = true;
         $sqluser = "UPDATE `usuarios` SET statusevaluado = 1 WHERE idusuario = {$idUser};";
         $actualizaStatusevaluado = mysqli_query($db, $sqluser);
@@ -170,7 +177,3 @@ if (isset($_POST['objtUseR'])) {
     window.location.replace("?controller=evausuario&action=index");
     </script>';
 }
-
-
-$mensaje2 .= "REGRISTRO EXITOSO";
-print_r($mensaje2);

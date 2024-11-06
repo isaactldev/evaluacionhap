@@ -86,8 +86,8 @@ $countt = 0;
                     </div>
                     <div class="col-12 mb-3">
                       <label for="calificaconCapF" class="form-label">Plataforma de Capacitacion Calif.</label>
-                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap->calif_competencia ?>
-                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>">
+                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap ?>
+                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>" disabled>
                     </div>
                   </div>
                 </div>
@@ -299,8 +299,16 @@ $countt = 0;
               <hr>
 
               <div class="row">
+                <div class="col-6 mt-3 mb-2 justify-content-md-end">
+                </div>
+                <div class="col-6 mt-3 mb-2 text-md-right justify-content-md-end">
+                  <label for="formGroupExampleInput">Competencias Genericas: </label><input id="califGenerales" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                  <label for="formGroupExampleInput">Competencias Tecnicas: </label><input id="califTecR" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                  <label for="formGroupExampleInput">Plataforma de Capacitacion: </label><input id="califCapacit" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                  <hr>
+                  <label for="formGroupExampleInput">Total: </label><input type="text" class=" ml-2 col-1 text-center" id="totalPuntos2" name="puntaje" value="" disabled><br>
+                </div>
                 <div class="d-grid gap-2 d-md-flex mt-3 mb-2 justify-content-md-end">
-                  <label for=""><strong>Calificación Previa:</strong></label><input type="text" class="form-control text-center col-1" id="totalPuntos2" name="puntaje" disabled>
                   <button class="btn btn-primary me-md-2" type="button" onclick="countPuntos();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
                       <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
@@ -318,13 +326,6 @@ $countt = 0;
                       Guardar Evaluacion
                     </button>
                   <?php endif; ?>
-                </div>
-                <div id="alertCapacitaciones" class="d-grid gap-2 d-md-flex mt-3 mb-2 justify-content-md-end" style="display: none !important;">
-                  <div class="col-4">
-                    <blockquote style="border-left: 5px solid #0080c0; margin-top: 5px;" class="heartbeat-button">
-                      <h1 style="color: #000;"><strong>#NOTA: </strong> ¡Recuerda que esta es una calificacion preliminar, falta por considerar el rubro de CAPACITACIONES!</h1>
-                    </blockquote>
-                  </div>
                 </div>
               </div>
               <!-- <div id="respuesta"class="alert alert-primary" role="alert"> </div>-->

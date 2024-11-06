@@ -20,6 +20,7 @@ function countPuntos() {
   let calif360user = $("#calif360user").val();
   var preguntasFaltantes360 = false;
   let maxPuntosTec = totalPreguntasTec * 4;
+  var califCap = parseFloat($("#calificaconCapF").val());
 
   for (let i = 0; i < totalPreguntasTec; i++) {
     let idPreguntaTec = $("#idptec" + i).val();
@@ -51,8 +52,8 @@ function countPuntos() {
   let totalPuntosTec = countPuntosTec;
   console.log("totalPuntosTec: ", totalPuntosTec);
 
-  let calf1 = totalPuntosTec * 0.6 / maxPuntosTec; /* 0.6 */
-  let calf2 = calif360user * 0.4; /* calidicacion de la 360 */
+  let calf1 = totalPuntosTec * 0.5 / maxPuntosTec; /* CALIFICAION TECNICAS */
+  let calf2 = calif360user * 0.4; /* calificacion de la 360 */
 
   let califpreliminarTec = calf1 * 10;
   let calificacion = califpreliminarTec + calf2;
@@ -61,22 +62,28 @@ function countPuntos() {
   if (calificacion > 10) {
     calificacion = 10;
   } else {
-    calificacion = calificacion.toFixed(2);
+    calificacion = calificacion;
   }
+
+  calificacion = Math.trunc(calificacion * 100) / 100;
 
   if (isNaN(calificacion)) {
     $("#totalPuntos2").val(0);
     preguntasFaltantes360 = true;
   } else {
-    console.log("CALIFICACION FINAL:", calificacion);
-    calificacion = ajusteCalifCapacitacion(calificacion);
+    calificacion = calificacion + califCap;
+    calificacion = Math.trunc(calificacion * 100) / 100;
+
+    /* CALIFICACION TECNICA 360 */
+    var showcalf1 = calf1 * 10;
+    showcalf1 = Math.trunc(showcalf1 * 100) / 100;
+    showcalf1 = showcalf1.toFixed(2);
+
+    $("#califTecR").val(showcalf1);
+    $("#califCapacit").val(califCap);
     $("#totalPuntos2").val(calificacion);
-    var x = document.getElementById("alertCapacitaciones");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
+    console.log("CALIFICACION FINAL:", calificacion);
+
     /* VALIDACION PARA GUARDAR CALIFICACION */
     if (preguntasFaltantes360 == false && !isNaN(calificacion)) {
       $("#totalPuntos2").val(calificacion);
@@ -132,7 +139,7 @@ function guardarRespuestas() {
     capacitacion: capacitacion,
     evalua360: evalua360,
     periodo: periodo,
-    califCapacitacion: califCap
+    califCap: califCap
   };
   var url = location.origin;
   var path = window.location.pathname;
@@ -160,14 +167,4 @@ function guardarRespuestas() {
       }, 2250);
     }
   );
-}
-
-function ajusteCalifCapacitacion(califEva) {
-  var califEva = parseFloat(califEva);
-  var califCap = parseFloat($("#calificaconCapF").val());
-
-  var califEvaPeriodoFinal = califEva - 1;
-  califEvaPeriodoFinal = califEvaPeriodoFinal + califCap;
-
-  return califEvaPeriodoFinal.toFixed(2);
 }

@@ -13,7 +13,7 @@ if (isset($_POST['objtUseR'])) {
     $respTec2 = $_POST['objtUseR']['totalrespTec'];
     $capacitacion = $_POST['objtUseR']['capacitacion'];
     $compromisos = $_POST['objtUseR']['compromisos'];
-    $califCapacitacion =  $_POST['objtUseR']['califCapacitacion'];
+    $califCap =  $_POST['objtUseR']['califCap'];
     $periodo = $_POST['objtUseR']['periodo'];
     $year = date('Y');
 
@@ -24,7 +24,7 @@ if (isset($_POST['objtUseR'])) {
 
     /* CALCULO DE CALIFICACION OPARA OPERATIVOS */
     $calf1preliminar = ($totalPuntosTec * 0.4) / $maxPuntosTec;/* calificacion de Competencias Tecnicas */
-    $calf2 = ($calif360user * 0.6);/* calidicacion de la 360 */
+    $calf2 = ($calif360user * 0.5);/* calidicacion de la 360 */
 
     $calif1 = $calf1preliminar * 10;
 
@@ -32,12 +32,10 @@ if (isset($_POST['objtUseR'])) {
     /* SE PONDERA LA CALIFICACION SI ES MAYOR A 10 SE QUEDA EN UN 10 ABSOLUTO */
     if ($calificacion > 10) {
         $calificacionOficial = 10;
-        $calificacionOficialAjuste = $calificacionOficial - 1;
-        $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+        $calificacionOficial =  $calificacionOficial + $califCap;
     } else {
-        $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-        $calificacionOficialAjuste = $calificacionOficial - 1;
-        $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+        $calificacionOficial = bcdiv($calificacion, '1', 2);
+        $calificacionOficial =  $calificacionOficial + $califCap;
     }
 
     $chekCaliftec360 = "SELECT * FROM `califtec360` WHERE `idusario` = {$idUser} AND `idperiodo` = {$periodo} AND `date` = {$year};";

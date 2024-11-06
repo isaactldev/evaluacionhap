@@ -9,7 +9,7 @@ if (isset($_POST['objtUseR'])) {
     $totalPuntosTec = $_POST['objtUseR']["totalPuntosTec"];
     $respTec = COUNT($_POST['objtUseR']['respuestasTec']);
     $respTec2 = $_POST['objtUseR']['totalrespTec'];
-    $califCapacitacion =  $_POST['objtUseR']['califCapacitacion'];
+    $califCap =  $_POST['objtUseR']['califCap'];
     $year = date('Y');
     $periodo = $_POST['objtUseR']['periodo'];
 
@@ -25,12 +25,10 @@ if (isset($_POST['objtUseR'])) {
     /* SE PONDERA LA CALIFICACION SI ES MAYOR A 10 SE QUEDA EN UN 10 ABSOLUTO */
     if ($calificacion >= 10) {
         $calificacionOficial = 10;
-        $calificacionOficialAjuste = $calificacionOficial - 1;
-        $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+        $calificacionOficial =  $calificacionOficial + $califCap;
     } else {
-        $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-        $calificacionOficialAjuste = $calificacionOficial - 1;
-        $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+        $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+        $calificacionOficial =  $calificacionOficial + $califCap;
     }
 
 
@@ -50,9 +48,6 @@ if (isset($_POST['objtUseR'])) {
             VALUES (NULL, {$idUser}, {$calif1}, {$periodo}, {$year});";
         $savecaliftec = mysqli_query($db, $sqlcaliftec);
     }
-
-
-
 
     /* FIN CALCULO DE CALIFICACION OPARA OPERATIVOS */
     for ($i = 0; $i < $respTec; $i++) {

@@ -635,7 +635,7 @@ Utils::deleteSession('saveeditCapacitacion');
       respuestasTec: arregloTec,
       evalua360: evalua360,
       periodo: periodo,
-      califCapacitacion: califCap
+      califCap: califCap
 
     };
 

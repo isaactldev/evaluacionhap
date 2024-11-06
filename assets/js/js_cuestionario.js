@@ -55,6 +55,8 @@ function countPuntos() {
 
   /* CALCULO DE CALIFICACION GENERALES*/
   let calf1 = totalPuntos * 0.4 / maxPuntosG;
+  calf1 = Math.floor(calf1 * 1000) / 1000;
+  calf1 = parseFloat(calf1);
 
   /* SI EXISTE CALIFICACION DEL ANECDOTARIO */
   if ($("#califAnecdotario").length) {
@@ -73,12 +75,6 @@ function countPuntos() {
     } else {
       calificacion = calificacion;
     }
-    console.log(totalPuntos);
-    console.log("calificacion anecdotario: ", califTec);
-    console.log("calificacion generica:", calf1);
-    console.log("calificacion anecdotario:", calf2);
-    console.log("Calificacion FINAL:", calificacion);
-    console.log("Calificacion Cap", califCap);
 
     if (isNaN(calificacion)) {
       $("#totalPuntos2").val(0);
@@ -126,7 +122,11 @@ function countPuntos() {
 
     let totalPuntosTec = countPuntosTec;
     let calf2 = countPuntosTec * 0.5 / maxPuntosTec;
+    calf2 = Math.floor(calf2 * 1000) / 1000;
+    calf2 = parseFloat(calf2);
+
     let calificacion = (calf1 + calf2) * 10;
+    calificacion = Math.floor(calificacion * 100) / 100;
     if (calificacion > 10) {
       calificacion = 10;
     } else {
@@ -134,12 +134,6 @@ function countPuntos() {
     }
 
     calificacion = Math.trunc(calificacion * 100) / 100;
-
-    console.log(totalPuntos);
-    console.log("calificacion generica:", calf1);
-    console.log("calificacion tecnicas:", calf2);
-    console.log("Calificacion FINAL:", calificacion);
-    console.log("Calificacion Cap", califCap);
 
     if (isNaN(calificacion)) {
       $("#totalPuntos2").val(0);
@@ -150,12 +144,10 @@ function countPuntos() {
 
       /* base 10 calificacion tecnica */
       var showcalf2 = calf2 * 10;
-      showcalf2 = Math.trunc(showcalf2 * 100) / 100;
       showcalf2 = showcalf2.toFixed(2);
 
       /* base 10 Calificacion Generica */
       var showcalf1 = calf1 * 10;
-      showcalf1 = Math.trunc(showcalf1 * 100) / 100;
       showcalf1 = showcalf1.toFixed(2);
 
       $("#califGenerales").val(showcalf1);

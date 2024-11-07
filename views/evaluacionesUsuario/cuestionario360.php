@@ -13,7 +13,7 @@ $countt = 0;
         <div class="col text-center">
         </div>
         <div class="col-6 col-sm-6 text-center">
-          <h1>EVALUACIÓN DEL DESEMPEÑO 360° <?php echo $date = date("Y"); ?> - PERSONAL OPERATIVO 360°</h1>
+          <h1>EVALUACIÓN DEL DESEMPEÑO 360° <?php echo $date = date("Y"); ?> - PERSONAL 360°</h1>
         </div>
         <div class="col col-sm-6 col-lg-3 text-center">
           <?php if ($_SESSION['identity']->rol == 'user') : ?>

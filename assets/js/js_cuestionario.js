@@ -63,7 +63,10 @@ function countPuntos() {
     let califTec = parseFloat($("#califAnecdotario").val());
 
     /* CALCULO DE CALIFICACION GENERALES DE ENFERMERAS */
-    let calf1 = totalPuntos * 0.4 / maxPuntosG * 10;
+    let calf1 = totalPuntos * 0.4 / maxPuntosG;
+    calf1 = Math.floor(calf1 * 1000) / 1000;
+    calf1 = parseFloat(calf1);
+
     let calf2 = califTec;
 
     let calificacion = calf1 + calf2;
@@ -142,13 +145,13 @@ function countPuntos() {
       calificacion = calificacion + califCap;
       calificacion = Math.trunc(calificacion * 100) / 100;
 
-      /* base 10 calificacion tecnica */
-      var showcalf2 = calf2 * 10;
-      showcalf2 = showcalf2.toFixed(2);
-
       /* base 10 Calificacion Generica */
       var showcalf1 = calf1 * 10;
       showcalf1 = showcalf1.toFixed(2);
+
+      /* base 10 calificacion tecnica */
+      var showcalf2 = calf2 * 10;
+      showcalf2 = showcalf2.toFixed(2);
 
       $("#califGenerales").val(showcalf1);
       $("#califTecR").val(showcalf2);

@@ -14,7 +14,7 @@ if (isset($_POST['objtUseR'])) {
     $capacitacion = $_POST['objtUseR']['capacitacion'];
     $compromisos = $_POST['objtUseR']['compromisos'];
     $periodo = $_POST['objtUseR']['periodo'];
-    $califCapacitacion =  $_POST['objtUseR']['califCapacitacion'];
+    $califCap =  $_POST['objtUseR']['califCapacitacion'];
     $year = date('Y');
     $maxPuntosG = $resp * 4;
     $maxPuntosTec = $respTec * 4;
@@ -48,31 +48,27 @@ if (isset($_POST['objtUseR'])) {
 
         if ($calificacion >= 10) {
             $calificacionOficial = 10;
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial =  $calificacionOficial + $califCap;
         } else {
-            $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial = bcdiv($calificacion, '1', 2);
+            $calificacionOficial =  $calificacionOficial + $califCap;
         }
     } else {
 
         /* CALCULO DE CALIFICACION OPARA OPERATIVOS */
-        $calf1 = ($totalPuntosG * 0.6) / $maxPuntosG;
-        $calf2 = ($totalPuntosTec * 0.4) / $maxPuntosTec;
-
+        $calf1 = ($totalPuntosG * 0.4) / $maxPuntosG;
+        $calf2 = ($totalPuntosTec * 0.5) / $maxPuntosTec;
         $califtec = $calf2 * 10;
-
         $calificacion = ($calf1 + $calf2) * 10;
+
         /* SE PONDERA LA CALIFICACION SI ES MAYOR A 10 SE QUEDA EN UN 10 ABSOLUTO */
         if ($calificacion >= 10) {
             $calificacionOficial = 10;
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial = 10;
+            $calificacionOficial =  $calificacionOficial + $califCap;
         } else {
-            $calificacionOficial = round($calificacion, 2);/* CALCULO A 2 DECIMALES */
-            $calificacionOficialAjuste = $calificacionOficial - 1;
-            $calificacionOficial =  $calificacionOficialAjuste + $califCapacitacion;
+            $calificacionOficial = bcdiv($calificacion, '1', 2);/* CALCULO A 2 DECIMALES */
+            $calificacionOficial =  $calificacionOficial + $califCap;
         }
 
         $year = date('Y');

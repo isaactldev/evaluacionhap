@@ -67,15 +67,6 @@ $countt = 0;
                         <p><small><strong>Tu calificación sera capturada por desarrollo de Personal</strong></small></p>
                       <?php endif; ?>
                     </div>
-                    <div class="col-12 mb-3">
-                      <blockquote style="border-left: 5px solid #0080c0; margin-top: 5px;" class="heartbeat-button">
-                        <h1 style="color: #000;"><strong>#NOTA: </strong> ¡Recuerda que esta es una calificacion preliminar, falta por considerar el rubro de CAPACITACIONES!</h1>
-                      </blockquote>
-                    </div>
-                    <div class="col-12 mb-3">
-                      <label for="formGroupExampleInput" class="form-label">Calificación</label>
-                      <input type="text" class="form-control" id="totalPuntos" name="puntaje" value="<?= $califPeriodo->calificacionperiodo ?>">
-                    </div>
                   </div>
                   <div class="col-4">
                     <div class="col-12 mb-3">
@@ -88,6 +79,11 @@ $countt = 0;
                       <?php $puesto = Utils::userDepartamento($usuario->iddepartamento); ?>
                       <input type="text" class="form-control" id="formGroupExampleInput" name="dep" value="<?= $puesto->depnombre ?>">
                     </div>
+                    <div class="col-12 mb-3">
+                      <label for="calificaconCapF" class="form-label">Plataforma de Capacitacion Calif.</label>
+                      <?php $calificaconCapF = ($califCap == "400") ? "SIN CALIFICACION EXISTENTE!" : $califCap ?>
+                      <input type="text" class="form-control text-center" id="calificaconCapF" name="calificaconCapF" value="<?= $calificaconCapF ?>" disabled>
+                    </div>
                   </div>
                   <div class="col-4">
                     <div class="col-12 mb-3">
@@ -98,6 +94,10 @@ $countt = 0;
                       <?php $periodo = Utils::getPeriodoActivo(); ?>
                       <label for="formGroupExampleInput" class="form-label">Periodo Evaluado</label>
                       <input type="text" class="form-control" id="idperiodo" name="periodo" value="<?= $califPeriodo->idperiodo; ?>">
+                    </div>
+                    <div class="col-12 mb-3">
+                      <label for="formGroupExampleInput" class="form-label">Calificación</label>
+                      <input type="text" class="form-control" id="totalPuntos" name="puntaje" value="<?= $califPeriodo->calificacionperiodo ?>">
                     </div>
                   </div>
                 </div>
@@ -324,8 +324,16 @@ $countt = 0;
               <hr>
               <?php if ($_SESSION['identity']->rol == 'admin') : ?>
                 <div class="row">
+                  <div class="col-6 mt-3 mb-2 justify-content-md-end">
+                  </div>
+                  <div class="col-6 mt-3 mb-2 text-md-right justify-content-md-end">
+                    <label for="formGroupExampleInput">Competencias Tecnicas: </label><input id="califTecR" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                    <label for="formGroupExampleInput">Plataforma de Capacitacion: </label><input id="califCapacit" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                    <hr>
+                    <label for="formGroupExampleInput">Total: </label><input type="text" class=" ml-2 col-1 text-center" id="totalPuntos2" name="puntaje" value="" disabled><br>
+                  </div>
                   <div class="d-grid gap-2 d-md-flex mt-3 mb-2 justify-content-md-end">
-                    Calificacion Previa: <input type="text" class="form-control col-1" id="totalPuntos2" name="puntaje" value="">
+
                     <button class="btn btn-primary me-md-2" type="button" onclick="countPuntos();"><i class="fas fa-spell-check"></i> Ver Calificacion </button>
 
                     <button class="btn btn-primary me-md-2" type="button" onclick="guardarRespuestas();"><i class="fa fa-fw fa-plus-square"></i> Guardar Modificacion </button>
@@ -369,6 +377,7 @@ $countt = 0;
     let arregloTec = [];
     let totalPreguntasTec = $('#totalPreguntasTec').val();
     let calif360user = $('#calif360user').val();
+    var califCap = parseFloat($("#calificaconCapF").val());
 
     let maxPuntosTec = totalPreguntasTec * 4;
 
@@ -398,32 +407,41 @@ $countt = 0;
     let totalPuntosTec = countPuntosTec;
     console.log('totalPuntosTec: ', totalPuntosTec);
 
+    /* CALIFICACION DE LAS COMPETENCIAS TECNICAS DE LOS 360 */
     let calf1 = (totalPuntosTec * 0.4) / maxPuntosTec;
-    let calf2 = (calif360user * 0.6); /* calificacion de la 360 */
+    calf1 = Math.floor(calf1 * 1000) / 1000;
+    calf1 = parseFloat(calf1);
+
+    /* calificacion de la 360 */
+    let calf2 = (calif360user * 0.5);
+    calf2 = Math.floor(calf2 * 1000) / 1000;
+    calf2 = parseFloat(calf2);
 
     let califpreliminarTec = calf1 * 10;
     let calificacion = (califpreliminarTec + calf2);
 
-    console.log('calificacion 1: ', calificacion);
     if (calificacion > 10) {
       calificacion = 10;
     } else {
-      calificacion = calificacion.toFixed(2);
+      calificacion = calificacion;
     }
 
     if (isNaN(calificacion)) {
-      $("#totalPuntos2").val('0');
+      $("#totalPuntos2").val(0);
+    } else {
+
+      calificacion = calificacion + califCap;
+      calificacion = Math.trunc(calificacion * 100) / 100;
+
+      var showcalf1 = calf1 * 10;
+      showcalf1 = Math.trunc(showcalf1 * 100) / 100;
+      showcalf1 = showcalf1.toFixed(2);
+
+      $("#califTecR").val(showcalf1);
+      $("#califCapacit").val(califCap);
+      $("#totalPuntos2").val(calificacion);
+      $("#totalPuntos2").val(calificacion);
     }
-    $("#totalPuntos2").val(calificacion);
-
-
-    console.log('maxPuntosTec : ',maxPuntosTec);
-    console.log('totalPreguntasTec: ', totalPreguntasTec);
-    console.log('calf1: ', calf1);
-    console.log('calf2: ', calf2);
-    console.log('calif360user: ', calif360user);
-    console.log('calificacion: ', calificacion);
-    console.log('califpreliminarTec: ', califpreliminarTec);
   }
 
   function guardarRespuestas() {

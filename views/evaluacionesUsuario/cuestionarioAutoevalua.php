@@ -302,8 +302,16 @@ $countt = 0;
                 <hr>
 
                 <div class="row">
+                  <div class="col-6 mt-3 mb-2 justify-content-md-end">
+                  </div>
+                  <div class="col-6 mt-3 mb-2 text-md-right justify-content-md-end">
+                    <label for="formGroupExampleInput">Competencias Genericas: </label><input id="califGenerales" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                    <label for="formGroupExampleInput">Competencias Tecnicas: </label><input id="califTecR" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                    <label for="formGroupExampleInput">Plataforma de Capacitacion: </label><input id="califCapacit" type="number" class="ml-2 col-1 text-center" value="" disabled><br>
+                    <hr>
+                    <label for="formGroupExampleInput">Total: </label><input type="text" class=" ml-2 col-1 text-center" id="totalPuntos2" name="puntaje" value="" disabled><br>
+                  </div>
                   <div class="d-grid gap-2 d-md-flex mt-3 mb-2 justify-content-md-end">
-                    <label for=""><strong>Calificación Previa:</strong></label><input type="text" class="form-control text-center col-1" id="totalPuntos2" name="puntaje" disabled>
                     <button class="btn btn-primary me-md-2" type="button" onclick="countPuntos();"><i class="fas fa-spell-check"></i> Ver Calificacion </button>
                     <?php if ($calificacionAnec->noSave == 1) : ?>
                       <button class="btn btn-primary me-md-2" type="button" onclick="alertcalificacion();"><i class="fa fa-fw fa-plus-square"></i> Guardar Evaluacion</button>

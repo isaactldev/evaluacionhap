@@ -35,13 +35,22 @@ if (isset($_POST['objtUseR'])) {
     $infoUser360 = mysqli_query($db, $sqlinfoUser360);
     $usuario = $infoUser360->fetch_object();
 
+    $sqlcalifCapacitacion = "SELECT  CASE
+    WHEN (COUNT(*) / 3) >= 1 THEN 1
+    ELSE COUNT(*) / 3
+    END AS resultado
+    FROM califcapacitacion
+    WHERE noempleado={$usuario->noempleado} AND enlazado=1 AND idperiodo={$idperiodo} AND fecha={$fecha} AND calif_competencia>=0.8;";
+    $califcapUser =  mysqli_query($db, $sqlcalifCapacitacion);
+    $califcapUser = $califcapUser->fetch_object()->resultado;
+
 
     /* EMPATE DE CALIFICACIONES 360  */
 
     /* CUESTIONARIO A COORDINADORES 360 SOLO SE CALIFICA [COMPETENCIAS TECNICAS]*/
     if ($usuario->tipoevaluacion == 'DIRECTIVO' && $usuario->autoevalua == 2 &&  $usuario->evalua360 == 'SI') {
-        $calificacion360 = ($calificacion360 * 0.6);
-        $calificaionOficial = ($calificacion360 + $getcalifTec);
+        $calificacion360 = ($calificacion360 * 0.5);
+        $calificaionOficial = ($calificacion360 + $getcalifTec + $califcapUser);
 
         /* INSERTAMOS LA CALIFICACION EN LA TABLA DE USUARIOS  */
         $sqlusariocalificacion = "UPDATE usuarios SET calificacion = {$calificaionOficial} WHERE idusuario = {$idusuario};";
@@ -65,7 +74,7 @@ if (isset($_POST['objtUseR'])) {
     /* OPERATIVA 360 */
     if ($usuario->tipoevaluacion == 'OPERATIVO' && $usuario->autoevalua == 2 &&  $usuario->evalua360 == 'SI') {
         $calificacion360 = ($calificacion360 * 0.4);
-        $calificaionOficial = ($calificacion360 + $getcalifTec);
+        $calificaionOficial = ($calificacion360 + $getcalifTec + $califcapUser);
 
         /* INSERTAMOS LA CALIFICACION EN LA TABLA DE USUARIOS  */
         $sqlusariocalificacion = "UPDATE usuarios SET calificacion = {$calificaionOficial} WHERE idusuario = {$idusuario};";
@@ -87,8 +96,8 @@ if (isset($_POST['objtUseR'])) {
     }
     /* CUESTIONARIO A SUPERVISORES [AUTOEVALUACION]*/
     if ($usuario->tipoevaluacion == 'OPERATIVO' && $usuario->autoevalua == 1 &&  $usuario->evalua360 == 'SI') {
-        $calificacion360 = ($calificacion360 * 0.6);
-        $calificaionOficial = ($calificacion360 + $getcalifTec);
+        $calificacion360 = ($calificacion360 * 0.4);
+        $calificaionOficial = ($calificacion360 + $getcalifTec + $califcapUser);
 
         /* INSERTAMOS LA CALIFICACION EN LA TABLA DE USUARIOS  */
         $sqlusariocalificacion = "UPDATE usuarios SET calificacion = {$calificaionOficial} WHERE idusuario = {$idusuario};";

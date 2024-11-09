@@ -269,32 +269,40 @@ class evaluacionController
                 }
             }
 
-            //PORCENTAJE DE CAPACITACIONES PERIODO 1
-            $califCapacitaciones1 =  new califCapacitaciones();
+            /* CALIFICACION DE LA PLATAFORMA DE CAPACITACIONES  PERIODO 1*/
+            $califCapacitaciones1 =  new calificacionCapacitacion();
             $califCapacitaciones1->setNoempleado($usuario->noempleado);
             $califCapacitaciones1->setIdperiodo($periodo1);
             $califCapacitaciones1->setFecha($fecha);
-            $calificacionCap1 =  $califCapacitaciones1->getCalificacionCapacitacionByUsPerriodo();
+            $calificacionCap1 =  $califCapacitaciones1->getCalificacionCapByUser();
+            $calificacionCap1 = bcdiv($calificacionCap1, '1', 2);
 
-            //PORCENTAJE DE CAPACITACIONES PERIODO 2
-            $califCapacitaciones2 =  new califCapacitaciones();
+
+            /* CALIFICACION DE LA PLATAFORMA DE CAPACITACIONES  PERIODO 1*/
+            $califCapacitaciones2 =  new calificacionCapacitacion();
+            $califCapacitaciones2->setNoempleado($usuario->noempleado);
             $califCapacitaciones2->setIdperiodo($periodo2);
             $califCapacitaciones2->setFecha($fecha);
-            $calificacionCap2 =  $califCapacitaciones2->getCalificacionCapacitacionByUsPerriodo();
+            $calificacionCap2 =  $califCapacitaciones2->getCalificacionCapByUser();
+            $calificacionCap2 = bcdiv($calificacionCap2, '1', 2);
 
-            if ($calificacionCap1 == false) {
+
+            if ($calificacionCap1 == "400") {
                 $califCapP1  =  0;
             } else {
-                $califCapP1 = $calificacionCap1->calif_competencia;
+                $califCapP1 = $calificacionCap1;
             }
-            if ($calificacionCap2 == false) {
+
+
+            if ($calificacionCap2 == "400") {
                 $califCapP2 =  0;
             } else {
-                $califCapP2 = $calificacionCap2->calif_competencia;
+                $califCapP2 = $calificacionCap2;
             }
 
             //PROMEDIO GENERAL FINAL
-            $promf = bcdiv($promedio, '1', 2);
+            //$promf = bcdiv($promedio, '1', 2);
+            $promf = ceil($promedio * 100) / 100;
 
 
             $calificacionTecnica = new califTec360();

@@ -49,17 +49,11 @@ class evaluacionpersonal360Controller
         $allPreguntas  =  $preguntas->getAllpreguntasByIdTipoEva360();
         $allPreguntas1 =  $preguntas->getAllpreguntasByIdTipoEva360();
 
-
-
-
-
         require_once 'views/evaluacionesUsuarios360/index.php';
     }
 
     public function iniciaEvaluacionA360()
     {
-
-
 
         if (isset($_GET['noEvaluador'], $_GET['noEvaluado'])) {
 

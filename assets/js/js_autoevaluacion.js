@@ -136,7 +136,7 @@ function countPuntos() {
     }
 
     let totalPuntosTec = countPuntosTec;
-    let calf2 = countPuntosTec * 0.4 / maxPuntosTec;
+    let calf2 = countPuntosTec * 0.5 / maxPuntosTec;
     calf2 = Math.floor(calf2 * 1000) / 1000;
     calf2 = parseFloat(calf2);
 

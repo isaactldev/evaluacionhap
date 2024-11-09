@@ -320,7 +320,7 @@ $calificacionBloque2 = 0;
                       </tr>
 
                       <td colspan="1" id="tableHap" class="tableHap">
-                        <center><strong>CALIFICACION TOTAL: </strong></center>
+                        <center><strong>CALIFICACION DE COMPETENCIAS TECNICAS: </strong></center>
                       </td>
                       <td colspan="2" class="text-center">
                         <center><strong> <?= $variable1 = ($calificacionTecnicaP1->calificaciontec) ? $calificacionTecnicaP1->calificaciontec : 0; ?> </strong></center>

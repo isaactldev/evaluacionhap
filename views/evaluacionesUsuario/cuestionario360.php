@@ -128,7 +128,7 @@ $countt = 0;
               <center>
                 <div class="col-md-12 fs-2 mt-5 mb-5">
                   <blockquote style="border-left: 5px solid #0080c0; margin-top: -15px;" class="heartbeat-button">
-                    <h1 style="color: #000;"><strong>Instrucciones: </strong> ¡Recuerda tienes un tiempo limite aproximado de 20min para contestar la Evaluacion!</h1>
+                    <h1 style="color: #000;"><strong>Instrucciones: </strong> ¡Recuerda tienes un tiempo limite aproximado de 1Hr para contestar la Evaluacion!</h1>
                   </blockquote>
                 </div>
               </center>

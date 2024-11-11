@@ -62,15 +62,9 @@ function countPuntos() {
   if ($("#califAnecdotario").length) {
     let califTec = parseFloat($("#califAnecdotario").val());
 
-    /* CALCULO DE CALIFICACION GENERALES DE ENFERMERAS */
-    let calf1 = totalPuntos * 0.4 / maxPuntosG;
-    calf1 = Math.floor(calf1 * 1000) / 1000;
-    calf1 = parseFloat(calf1);
-
+    calf1 = calf1 * 10;
     let calf2 = califTec;
-
     let calificacion = calf1 + calf2;
-
     calificacion = Math.trunc(calificacion * 100) / 100;
 
     if (calificacion > 10) {
@@ -85,13 +79,24 @@ function countPuntos() {
     } else {
       calificacion = calificacion + califCap;
       calificacion = Math.trunc(calificacion * 100) / 100;
+
+      /* base 10 Calificacion Generica */
+      var showcalf1 = calf1;
+      showcalf1 = showcalf1.toFixed(2);
+
+      /* base 10 calificacion tecnica */
+      var showcalf2 = calf2;
+
+      $("#califGenerales").val(showcalf1);
+      $("#califTecR").val(showcalf2);
+      $("#califCapacit").val(califCap);
       $("#totalPuntos2").val(calificacion);
-      console.log("CALIFICACION FINAL:", calificacion);
-    }
-    /* VALIDACION PARA GUARDAR CALIFICACION */
-    if (preguntasFaltantes == false && !isNaN(calificacion)) {
-      $("#totalPuntos2").val(calificacion);
-      $("#readysaveEvaluacion").prop("disabled", false);
+
+      /* VALIDACION PARA GUARDAR CALIFICACION */
+      if (preguntasFaltantes == false && !isNaN(calificacion)) {
+        $("#totalPuntos2").val(calificacion);
+        $("#readysaveEvaluacion").prop("disabled", false);
+      }
     }
   } else {
     /* PREGUNTAS TECNICAS */

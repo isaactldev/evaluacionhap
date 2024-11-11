@@ -236,7 +236,7 @@ class evaluacionusario
                 } else {
                     $total = $total  /  $count;
 
-                    $calificacionAnecdorarioTotal = $total * .60; /*PARA OBTENER EL PORCENTAJE DE LA EVALUACION DE ACUERDO A LA COMPETENCIA TECNICA*/
+                    $calificacionAnecdorarioTotal = $total * .50; /*PARA OBTENER EL PORCENTAJE DE LA EVALUACION DE ACUERDO A LA COMPETENCIA TECNICA*/
                     $anecdotarioCalif = $calificacionAnecdorarioTotal / 10;
                     $anecdotarioCalif = round($anecdotarioCalif, 2); // 0.75    
 

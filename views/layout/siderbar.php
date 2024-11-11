@@ -133,7 +133,7 @@ $periodoreportActivo =  Utils::getPeriodoActivo();
             <?php
             // PERSONAL 360 QUE YA SE ECUENTRAN EVALUADOS
             $db360 = dataBase::conexion();
-            $sqlexistUserEvaluador360 = "SELECT * FROM personal360 WHERE idevaluador = {$_SESSION['identity']->noempleado} AND periodo =  {$periodoreportActivo->idperiodo} AND statuseva360 = 2 AND fecha = {$yearActual};";
+            $sqlexistUserEvaluador360 = "SELECT * FROM personal360 WHERE idevaluador = {$_SESSION['identity']->noempleado} AND periodo =  {$periodoreportActivo->idperiodo} AND statuseva360 = 1 AND fecha = {$yearActual};";
             $existUserEvaluador360 = mysqli_query($db360, $sqlexistUserEvaluador360);
             ?>
 
@@ -181,7 +181,7 @@ $periodoreportActivo =  Utils::getPeriodoActivo();
             echo "</pre>"; */
             ?>
             <?php if (!empty($reportes360Liberados)) : ?>
-              <li class="nav-header"><strong>REPORTES DE EVALUACIÓN 360°</strong></li>
+              <li class="nav-header"><strong>REPORTES360° LIBERADOS</strong></li>
               <li class="nav-item">
                 <a class="nav-link" onclick="alertReportes360();">
                   <i class="fas fa-tachometer-alt"></i>
@@ -217,7 +217,7 @@ $periodoreportActivo =  Utils::getPeriodoActivo();
             <?php endif; ?>
 
             <!-- ESTO SE MUESTRA CUANDO AUN NO  -->
-            <?php if (mysqli_num_rows($existUserEvaluador360) > 0) : ?>
+            <!-- <?php if (mysqli_num_rows($existUserEvaluador360) > 0) : ?>
               <li class="nav-header"><strong>REPORTES DE EVALUACIÓN 360°</strong></li>
               <li class="nav-item">
                 <a class="nav-link" onclick="alertReportes360();">
@@ -252,7 +252,7 @@ $periodoreportActivo =  Utils::getPeriodoActivo();
                 </ul>
               </li>
 
-            <?php endif; ?>
+            <?php endif; ?> -->
           <?php endif; ?>
           <!-- /REPORTE  PERSONAL JEFE DIRECTO 360-->
 
